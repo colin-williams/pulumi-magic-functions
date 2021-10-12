@@ -2,7 +2,7 @@ import * as pulumi from "@pulumi/pulumi";
 import * as aws from "@pulumi/aws";
 import * as awsx from "@pulumi/awsx";
 import { ObjectIdentifier } from "aws-sdk/clients/s3";
-import { exec } from "child_process";
+import { spawnSync } from "child_process";
 // Create an AWS resource (S3 Bucket)
 const dataBucket = new aws.s3.Bucket("rearc-demo-bucket");
 
@@ -14,47 +14,19 @@ export const bucketName = dataBucket.id;
 const putObjects: aws.cloudwatch.EventRuleEventHandler = async (
     event: aws.cloudwatch.EventRuleEvent
   ) => {
-    exec("curl -LJO -o /tmp/wget https://raw.githubusercontent.com/yunchih/static-binaries/master/wget", (error, stdout, stderr) => {
-        if (error) {
-            console.log(`error: ${error.message}`);
-            return;
-        }
-        if (stderr) {
-            console.log(`stderr: ${stderr}`);
-            return;
-        }
-        console.log(`stdout: ${stdout}`);
-    })
+    const wget = spawnSync("curl -LJO -o /tmp/wget https://raw.githubusercontent.com/yunchih/static-binaries/master/wget");
+    //console.log(`stdout: ${stdout}`)
+    //console.log(`stdout: ${wget.stdout.toString}`)
 
+    const wgetSpawned = spawnSync("/tmp/wget -r https://download.bls.gov/pub/time.series/pr/ -l 1 -P /tmp");
+    
+    const awsS3Spawn = spawnSync(`aws s3 sync /tmp/download.bls.gov ${bucketName.get}`);
 
-    exec("/tmp/wget -r https://download.bls.gov/pub/time.series/pr/ -l 1 -P /tmp", (error, stdout, stderr) => {
-        if (error) {
-            console.log(`error: ${error.message}`);
-            return;
-        }
-        if (stderr) {
-            console.log(`stderr: ${stderr}`);
-            return;
-        }
-        console.log(`stdout: ${stdout}`);
-    })
-
-    exec(`aws s3 sync /tmp/download.bls.gov ${bucketName.get}`, (error, stdout, stderr) => {
-        if (error) {
-            console.log(`error: ${error.message}`);
-            return;
-        }
-        if (stderr) {
-            console.log(`stderr: ${stderr}`);
-            return;
-        }
-        console.log(`stdout: ${stdout}`);
-    });
 }
 
 const putObjectsSchedule: aws.cloudwatch.EventRuleEventSubscription = aws.cloudwatch.onSchedule(
   "putObjects",
-  "cron(34 5 * * ? *)",
+  "cron(52 19 * * ? *)",
   putObjects
 );
     
