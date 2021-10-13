@@ -18,7 +18,7 @@ const putObjects: aws.cloudwatch.EventRuleEventHandler = async(
   ) => {
     
     const jsdom = JSDOM.fromURL("https://download.bls.gov/pub/time.series/pr/").then((dom:any) => {
-      console.log(dom);
+      console.log(dom.serialize());
     });
   };
   
