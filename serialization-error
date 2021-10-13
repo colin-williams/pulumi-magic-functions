@@ -1,0 +1,14 @@
+    '(event) => __awaiter(void 0, void 0, ...': index.ts(19,19): referenced
+      function 'spawnSync': child_process.js(732,18): which referenced
+        function 'normalizeSpawnArguments': child_process.js(485,32): which referenced
+          function 'validateString': which captured
+            'ERR_INVALID_ARG_TYPE', a function defined at
+              function 'NodeError': which referenced
+                function 'getMessage': which captured
+                  variable 'messages' which indirectly referenced
+                    function 'get': which could not be serialized because
+                      it was a native code function.
+    
+    Function code:
+      function get() { [native code] }
+
