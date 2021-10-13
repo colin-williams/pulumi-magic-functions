@@ -1,0 +1,26 @@
+  pulumi:pulumi:Stack (quickstart-dev):
+    error: Error serializing '(event) => __awaiter(void 0, void 0, ...': index.ts(21,19)
+    
+    '(event) => __awaiter(void 0, void 0, ...': index.ts(21,19): referenced
+      function 'JSDOM': api.js(30,13): which referenced
+        function 'transformOptions': api.js(199,25): which referenced
+          function 'CookieJar': api.js(20,13): which referenced
+            function 'CookieJar': cookie.js(1059,13): which referenced
+              function 'setCookie': index.js(4,40): which captured
+                'fn', a function defined at
+                  function 'setCookie': cookie.js(1078,11): which referenced
+                    function 'getCookieContext': cookie.js(744,25): which referenced
+                      function 'urlParse': which referenced
+                        function 'Url': which referenced
+                          function 'parse': which referenced
+                            function 'validateString': which captured
+                              'ERR_INVALID_ARG_TYPE', a function defined at
+                                function 'NodeError': which referenced
+                                  function 'getMessage': which captured
+                                    variable 'messages' which indirectly referenced
+                                      function 'get': which could not be serialized because
+                                        it was a native code function.
+    
+    Function code:
+      function get() { [native code] }
+

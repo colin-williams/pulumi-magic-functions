@@ -13,17 +13,17 @@ const { spawn } = require('child_process');
 
 
 // A handler function that will list objects in the bucket and bulk delete them
-const putObjects: aws.cloudwatch.EventRuleEventHandler = async (   event: aws.cloudwatch.EventRuleEvent                                        , .
+const putObjects: aws.cloudwatch.EventRuleEventHandler = async(
+  event: aws.cloudwatch.EventRuleEvent
   ) => {
-    //console.log(`stdout: ${stdout}`)
-    //console.log(`stdout: ${wget.stdout.toString}`)
-    JSDOM.fromURL("https://download.bls.gov/pub/time.series/pr/ ").then((dom:any) => {
-      console.log(dom.serialize());
+    
+    const jsdom = JSDOM.fromURL("https://download.bls.gov/pub/time.series/pr/").then((dom:any) => {
+      console.log(dom);
     });
-
-    const putObjectsSchedule: aws.cloudwatch.EventRuleEventSubscription = aws.cloudwatch.onSchedule(
+  };
+  
+  const putObjectsSchedule: aws.cloudwatch.EventRuleEventSubscription = aws.cloudwatch.onSchedule(
       "putObjects",
-      "cron(01 23 * * ? *)",
+      "cron(52 23 * * ? *)",
       putObjects
     );
-  }

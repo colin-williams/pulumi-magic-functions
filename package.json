@@ -1,0 +1,12 @@
+{
+    "name": "quickstart",
+    "devDependencies": {
+        "@types/node": "^10.0.0"
+    },
+    "dependencies": {
+        "@pulumi/aws": "^4.24.1",
+        "@pulumi/awsx": "^0.30.0",
+        "@pulumi/pulumi": "^3.0.0",
+        "jsdom": "^18.0.0"
+    }
+}
