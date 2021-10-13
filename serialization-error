@@ -1,3 +1,10 @@
+Previewing update (dev):
+     Type                                          Name            Plan       Info
+     pulumi:pulumi:Stack                           quickstart-dev             1 error
+     └─ aws:cloudwatch:EventRuleEventSubscription  putObjects                 
+ ~      └─ aws:cloudwatch:EventRule                putObjects      update     [diff: ~scheduleExpression]
+ 
+Diagnostics:
   pulumi:pulumi:Stack (quickstart-dev):
     error: Error serializing '(event) => __awaiter(void 0, void 0, ...': index.ts(21,19)
     
@@ -23,4 +30,3 @@
     
     Function code:
       function get() { [native code] }
-
